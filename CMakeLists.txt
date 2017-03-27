@@ -3,14 +3,7 @@ project(top)
 # Automatically escape macros
 cmake_policy(SET CMP0005 NEW)
 
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -nostdinc -fwrapv -fPIC -include errno.h -include inttypes.h")
-
-set(CMAKE_SHARED_LINKER_FLAGS "-nodefaultlibs -nostdlib -fPIC -Wl,--version-script=${DARLING_TOP_DIRECTORY}/darwin.map")
-set(CMAKE_EXE_LINKER_FLAGS "-nodefaultlibs -nostdlib -fPIC -Wl,--version-script=${DARLING_TOP_DIRECTORY}/darwin.map")
-
-SET(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}/darling")
-SET(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
-SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -nostdinc -fwrapv -include errno.h -include inttypes.h")
 
 include_directories(
 	${CMAKE_CURRENT_SOURCE_DIR}
@@ -33,7 +26,7 @@ add_definitions(
 	-DTOP_ANONYMOUS_MEMORY
 )
 
-add_library(top-static STATIC
+add_library(top-static OBJECT
 	libtop.c
 )
 
@@ -76,9 +69,10 @@ add_darling_executable(top
 	sig.c
 	userinput_help.c
 	power.c
+	$<TARGET_OBJECTS:top-static>
 )
 
-target_link_libraries(top top-static CFF ncurses panel util IOKit)
+target_link_libraries(top CoreFoundation ncurses panel util)
 
 install(TARGETS top DESTINATION libexec/darling/usr/bin)
 
