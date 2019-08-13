@@ -26,7 +26,7 @@ add_definitions(
 	-DTOP_ANONYMOUS_MEMORY
 )
 
-add_library(top-static OBJECT
+add_darling_object_library(top-static
 	libtop.c
 )
 
