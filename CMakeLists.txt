@@ -5,18 +5,7 @@ cmake_policy(SET CMP0005 NEW)
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -nostdinc -fwrapv -include errno.h -include inttypes.h")
 
-include_directories(
-	${CMAKE_CURRENT_SOURCE_DIR}
-	${CMAKE_SOURCE_DIR}/platform-include
-	${CMAKE_SOURCE_DIR}/src/external/corefoundation/Headers
-	${CMAKE_BINARY_DIR}/src/external/corefoundation/Headers
-	${CMAKE_SOURCE_DIR}/src/external/foundation/Headers
-	${CMAKE_SOURCE_DIR}/kernel-include/iokit
-	${CMAKE_SOURCE_DIR}/src/libc/darwin
-	${CMAKE_SOURCE_DIR}/src/ncurses/include
-	${CMAKE_SOURCE_DIR}/src/ncurses/panel
-	${CMAKE_SOURCE_DIR}/src/libutil
-)
+include_directories(${CMAKE_SOURCE_DIR}/src/libutil)
 
 add_definitions(
 	-Wno-tautological-compare
@@ -72,7 +61,7 @@ add_darling_executable(top
 	$<TARGET_OBJECTS:top-static>
 )
 
-target_link_libraries(top CoreFoundation ncurses panel util)
+target_link_libraries(top CoreFoundation ncurses panel util IOKit)
 
 install(TARGETS top DESTINATION libexec/darling/usr/bin)
 
