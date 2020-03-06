@@ -3,7 +3,7 @@ project(top)
 # Automatically escape macros
 cmake_policy(SET CMP0005 NEW)
 
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -nostdinc -fwrapv -include errno.h -include inttypes.h")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fwrapv -include errno.h -include inttypes.h")
 
 include_directories(${CMAKE_SOURCE_DIR}/src/libutil)
 
@@ -11,6 +11,7 @@ add_definitions(
 	-Wno-tautological-compare
 	-Wno-switch
 	-Wno-implicit-function-declaration
+	-nostdinc
 
 	-DTOP_ANONYMOUS_MEMORY
 )
