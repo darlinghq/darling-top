@@ -43,9 +43,7 @@
 #include "logging.h"
 #include "sig.h"
 
-#ifndef DARLING
 const libtop_tsamp_t *tsamp;
-#endif
 
 static volatile sig_atomic_t resized = 1;
 
